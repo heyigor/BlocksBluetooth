@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Joseph Lin. All rights reserved.
 //
 
-#import "CBPeripheralManager+Blocks.h"
 #import <objc/runtime.h>
+#import "CBPeripheralManager+Blocks.h"
 #import "CBPeripheralManager+Debug.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -177,7 +177,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"peripheralManagerDidUpdateState: %@", peripheral.stateString);
     }
     if (self.didUpdateState) {
@@ -187,7 +187,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didAddService: %@, %@", service, error);
     }
     if (service.didAddService) {
@@ -198,7 +198,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didStartAdvertising: %@, %@", peripheral, error);
     }
     if (self.didStartAdvertising) {
@@ -209,7 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"central: %@, didSubscribeToCharacteristic: %@", central, characteristic);
     }
     if (self.centralDidSubscribeToCharacteristic) {
@@ -219,7 +219,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"central: %@, didUnsubscribeFromCharacteristic: %@", central, characteristic);
     }
     if (self.centralDidUnsubscribeFromCharacteristic) {
@@ -229,7 +229,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didReceiveReadRequest: %@", request);
     }
     if (self.didReceiveReadRequest) {
@@ -239,7 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didReceiveWriteRequests: %@", requests);
     }
     if (self.didReceiveWriteRequests) {

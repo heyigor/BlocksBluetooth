@@ -349,7 +349,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didDiscoverServices: %@, %@", peripheral.services, error);
     }
     if (self.didDiscoverServices) {
@@ -360,7 +360,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didDiscoverIncludedServicesForService: %@, %@", service, error);
     }
     if (service.didDiscoverIncludedServices) {
@@ -371,7 +371,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didDiscoverCharacteristicsForService: %@, %@", service, error);
     }
     if (service.didDiscoverCharacteristics) {
@@ -382,7 +382,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didDiscoverDescriptorsForCharacteristic: %@, %@", characteristic, error);
     }
     if (characteristic.didDiscoverDescriptors) {
@@ -393,7 +393,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didUpdateValueForCharacteristic: %@, %@", characteristic, error);
     }
     if (characteristic.didUpdateValue) {
@@ -404,7 +404,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didUpdateValueForDescriptor: %@, %@", descriptor, error);
     }
     if (descriptor.didUpdateValue) {
@@ -415,7 +415,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didWriteValueForCharacteristic: %@, %@", characteristic, error);
     }
     if (characteristic.didWriteValue) {
@@ -426,7 +426,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didWriteValueForDescriptor: %@, %@", descriptor, error);
     }
     if (descriptor.didWriteValue) {
@@ -437,7 +437,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didUpdateNotificationStateForCharacteristic: %@, %@", characteristic, error);
     }
     if (characteristic.didUpdateNotificationState) {
@@ -448,7 +448,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"peripheralDidUpdateRSSI: %@, %@", peripheral, error);
     }
     if (peripheral.didUpdateRSSI) {
@@ -459,7 +459,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralDidUpdateName:(CBPeripheral *)peripheral
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"peripheralDidUpdateName: %@", peripheral);
     }
     if (peripheral.didUpdateName) {
@@ -469,7 +469,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didModifyServices: %@, %@", peripheral, invalidatedServices);
     }
     if (peripheral.didModifyServices) {

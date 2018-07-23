@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"centralManagerDidUpdateState: %@", central.stateString);
     }
     if (self.didUpdateState) {
@@ -133,7 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"Discovered %@", peripheral);
     }
     if (self.didDiscoverPeripheral) {
@@ -143,7 +143,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"Peripheral connected: %@", peripheral);
     }
     if (peripheral.didConnect) {
@@ -154,7 +154,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didFailToConnectPeripheral: %@", error);
     }
     if (peripheral.didConnect) {
@@ -165,7 +165,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
-    if (self.verbose) {
+    if ([self isVerbose]) {
         NSLog(@"didDisconnectPeripheral: %@, %@", peripheral, error);
     }
     if (peripheral.didDisconnect) {

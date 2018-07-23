@@ -6,10 +6,25 @@
 //  Copyright (c) 2014 Joseph Lin. All rights reserved.
 //
 
+#import <objc/runtime.h>
 #import "CBCharacteristic+Debug.h"
 
 
 @implementation CBCharacteristic (Debug)
+@dynamic verbose;
+
+- (BOOL)isVerbose {
+    return [self.verbose boolValue];
+}
+
+- (NSNumber *)verbose {
+    return (NSNumber *)objc_getAssociatedObject(self, @selector(verbose));
+}
+
+- (void)setVerbose:(NSNumber *)verbose {
+    objc_setAssociatedObject(self, @selector(verbose), verbose, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 
 - (NSString *)propertiesString
 {

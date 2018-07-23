@@ -12,6 +12,8 @@
 @interface CBCharacteristic (Debug)
 
 @property (nonatomic, copy, readonly) NSString *propertiesString;
-@property (nonatomic) BOOL verbose;
+@property (nonatomic, copy) NSNumber *verbose;
+
+- (BOOL)isVerbose;
 
 @end

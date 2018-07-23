@@ -12,6 +12,8 @@
 @interface CBPeripheralManager (Debug)
 
 @property (nonatomic, copy, readonly) NSString *stateString;
-@property (nonatomic) BOOL verbose;
+@property (nonatomic, copy) NSNumber *verbose;
+
+- (BOOL)isVerbose;
 
 @end
