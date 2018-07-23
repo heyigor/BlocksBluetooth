@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class CBPeripheral, CBService, CBCharacteristic, CBDescriptor;
 
 typedef void(^BBVoidBlock)();
-typedef void(^BBErrorBlock)(NSError *error);
+typedef void(^BBErrorBlock)(NSError * _Nullable error);
 
 typedef void(^BBPeripheralBlock)(CBPeripheral * _Nullable peripheral, NSError * _Nullable error);
 typedef void(^BBPeripheralUpdateBlock)(CBPeripheral *peripheral, NSArray<CBService *> *invalidatedServices);

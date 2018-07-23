@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "BlocksBluetooth"
-  s.version      = "0.0.3"
+  s.version      = "0.0.4"
   s.summary      = "Bluetooth demo project with both Central and Peripheral targets."
   s.homepage     = "https://github.com/winkapp/BlocksBluetooth"
   s.license      = "MIT"
