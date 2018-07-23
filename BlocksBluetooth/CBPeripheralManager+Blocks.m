@@ -177,7 +177,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManagerDidUpdateState:(CBPeripheralManager *)peripheral
 {
-    NSLog(@"peripheralManagerDidUpdateState: %@", peripheral.stateString);
+    if (self.verbose) {
+        NSLog(@"peripheralManagerDidUpdateState: %@", peripheral.stateString);
+    }
     if (self.didUpdateState) {
         self.didUpdateState();
     }
@@ -185,7 +187,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didAddService:(CBService *)service error:(nullable NSError *)error
 {
-    NSLog(@"didAddService: %@, %@", service, error);
+    if (self.verbose) {
+        NSLog(@"didAddService: %@, %@", service, error);
+    }
     if (service.didAddService) {
         service.didAddService(service, error);
         service.didAddService = nil;
@@ -194,7 +198,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManagerDidStartAdvertising:(CBPeripheralManager *)peripheral error:(nullable NSError *)error
 {
-    NSLog(@"didStartAdvertising: %@, %@", peripheral, error);
+    if (self.verbose) {
+        NSLog(@"didStartAdvertising: %@, %@", peripheral, error);
+    }
     if (self.didStartAdvertising) {
         self.didStartAdvertising(error);
         self.didStartAdvertising = nil;
@@ -203,7 +209,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didSubscribeToCharacteristic:(CBCharacteristic *)characteristic
 {
-    NSLog(@"central: %@, didSubscribeToCharacteristic: %@", central, characteristic);
+    if (self.verbose) {
+        NSLog(@"central: %@, didSubscribeToCharacteristic: %@", central, characteristic);
+    }
     if (self.centralDidSubscribeToCharacteristic) {
         self.centralDidSubscribeToCharacteristic(central, characteristic);
     }
@@ -211,7 +219,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral central:(CBCentral *)central didUnsubscribeFromCharacteristic:(CBCharacteristic *)characteristic
 {
-    NSLog(@"central: %@, didUnsubscribeFromCharacteristic: %@", central, characteristic);
+    if (self.verbose) {
+        NSLog(@"central: %@, didUnsubscribeFromCharacteristic: %@", central, characteristic);
+    }
     if (self.centralDidUnsubscribeFromCharacteristic) {
         self.centralDidUnsubscribeFromCharacteristic(central, characteristic);
     }
@@ -219,7 +229,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveReadRequest:(CBATTRequest *)request
 {
-    NSLog(@"didReceiveReadRequest: %@", request);
+    if (self.verbose) {
+        NSLog(@"didReceiveReadRequest: %@", request);
+    }
     if (self.didReceiveReadRequest) {
         self.didReceiveReadRequest(request);
     }
@@ -227,7 +239,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralManager:(CBPeripheralManager *)peripheral didReceiveWriteRequests:(NSArray *)requests
 {
-    NSLog(@"didReceiveWriteRequests: %@", requests);
+    if (self.verbose) {
+        NSLog(@"didReceiveWriteRequests: %@", requests);
+    }
     if (self.didReceiveWriteRequests) {
         self.didReceiveWriteRequests(requests);
     }

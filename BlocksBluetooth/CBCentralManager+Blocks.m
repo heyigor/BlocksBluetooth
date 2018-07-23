@@ -123,7 +123,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
-    NSLog(@"centralManagerDidUpdateState: %@", central.stateString);
+    if (self.verbose) {
+        NSLog(@"centralManagerDidUpdateState: %@", central.stateString);
+    }
     if (self.didUpdateState) {
         self.didUpdateState();
     }
@@ -131,7 +133,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary<NSString *,id> *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSLog(@"Discovered %@", peripheral);
+    if (self.verbose) {
+        NSLog(@"Discovered %@", peripheral);
+    }
     if (self.didDiscoverPeripheral) {
         self.didDiscoverPeripheral(peripheral, advertisementData, RSSI);
     }
@@ -139,7 +143,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
-    NSLog(@"Peripheral connected: %@", peripheral);
+    if (self.verbose) {
+        NSLog(@"Peripheral connected: %@", peripheral);
+    }
     if (peripheral.didConnect) {
         peripheral.didConnect(peripheral, nil);
         peripheral.didConnect = nil;
@@ -148,7 +154,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
-    NSLog(@"didFailToConnectPeripheral: %@", error);
+    if (self.verbose) {
+        NSLog(@"didFailToConnectPeripheral: %@", error);
+    }
     if (peripheral.didConnect) {
         peripheral.didConnect(nil, error);
         peripheral.didConnect = nil;
@@ -157,7 +165,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
-    NSLog(@"didDisconnectPeripheral: %@, %@", peripheral, error);
+    if (self.verbose) {
+        NSLog(@"didDisconnectPeripheral: %@, %@", peripheral, error);
+    }
     if (peripheral.didDisconnect) {
         peripheral.didDisconnect(peripheral, error);
         peripheral.didDisconnect = nil;

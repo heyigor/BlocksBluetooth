@@ -7,6 +7,7 @@
 //
 
 #import "CBPeripheral+Blocks.h"
+#import "CBPeripheral+Debug.h"
 #import <objc/runtime.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -348,7 +349,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(nullable NSError *)error
 {
-    NSLog(@"didDiscoverServices: %@, %@", peripheral.services, error);
+    if (self.verbose) {
+        NSLog(@"didDiscoverServices: %@, %@", peripheral.services, error);
+    }
     if (self.didDiscoverServices) {
         self.didDiscoverServices(peripheral.services, error);
         self.didDiscoverServices = nil;
@@ -357,7 +360,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(nullable NSError *)error
 {
-    NSLog(@"didDiscoverIncludedServicesForService: %@, %@", service, error);
+    if (self.verbose) {
+        NSLog(@"didDiscoverIncludedServicesForService: %@, %@", service, error);
+    }
     if (service.didDiscoverIncludedServices) {
         service.didDiscoverIncludedServices(service.includedServices, error);
         service.didDiscoverIncludedServices = nil;
@@ -366,7 +371,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error
 {
-    NSLog(@"didDiscoverCharacteristicsForService: %@, %@", service, error);
+    if (self.verbose) {
+        NSLog(@"didDiscoverCharacteristicsForService: %@, %@", service, error);
+    }
     if (service.didDiscoverCharacteristics) {
         service.didDiscoverCharacteristics(service.characteristics, error);
         service.didDiscoverCharacteristics = nil;
@@ -375,7 +382,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    NSLog(@"didDiscoverDescriptorsForCharacteristic: %@, %@", characteristic, error);
+    if (self.verbose) {
+        NSLog(@"didDiscoverDescriptorsForCharacteristic: %@, %@", characteristic, error);
+    }
     if (characteristic.didDiscoverDescriptors) {
         characteristic.didDiscoverDescriptors(characteristic.descriptors, error);
         characteristic.didDiscoverDescriptors = nil;
@@ -384,7 +393,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    NSLog(@"didUpdateValueForCharacteristic: %@, %@", characteristic, error);
+    if (self.verbose) {
+        NSLog(@"didUpdateValueForCharacteristic: %@, %@", characteristic, error);
+    }
     if (characteristic.didUpdateValue) {
         characteristic.didUpdateValue(characteristic, error);
         characteristic.didUpdateValue = nil;
@@ -393,7 +404,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(nullable NSError *)error
 {
-    NSLog(@"didUpdateValueForDescriptor: %@, %@", descriptor, error);
+    if (self.verbose) {
+        NSLog(@"didUpdateValueForDescriptor: %@, %@", descriptor, error);
+    }
     if (descriptor.didUpdateValue) {
         descriptor.didUpdateValue(descriptor, error);
         descriptor.didUpdateValue = nil;
@@ -402,7 +415,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    NSLog(@"didWriteValueForCharacteristic: %@, %@", characteristic, error);
+    if (self.verbose) {
+        NSLog(@"didWriteValueForCharacteristic: %@, %@", characteristic, error);
+    }
     if (characteristic.didWriteValue) {
         characteristic.didWriteValue(characteristic, error);
         characteristic.didWriteValue = nil;
@@ -411,7 +426,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(nullable NSError *)error
 {
-    NSLog(@"didWriteValueForDescriptor: %@, %@", descriptor, error);
+    if (self.verbose) {
+        NSLog(@"didWriteValueForDescriptor: %@, %@", descriptor, error);
+    }
     if (descriptor.didWriteValue) {
         descriptor.didWriteValue(descriptor, error);
         descriptor.didWriteValue = nil;
@@ -420,7 +437,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error
 {
-    NSLog(@"didUpdateNotificationStateForCharacteristic: %@, %@", characteristic, error);
+    if (self.verbose) {
+        NSLog(@"didUpdateNotificationStateForCharacteristic: %@, %@", characteristic, error);
+    }
     if (characteristic.didUpdateNotificationState) {
         characteristic.didUpdateNotificationState(characteristic, error);
         characteristic.didUpdateNotificationState = nil;
@@ -429,7 +448,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error
 {
-    NSLog(@"peripheralDidUpdateRSSI: %@, %@", peripheral, error);
+    if (self.verbose) {
+        NSLog(@"peripheralDidUpdateRSSI: %@, %@", peripheral, error);
+    }
     if (peripheral.didUpdateRSSI) {
         peripheral.didUpdateRSSI(peripheral, error);
         peripheral.didUpdateRSSI = nil;
@@ -438,7 +459,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheralDidUpdateName:(CBPeripheral *)peripheral
 {
-    NSLog(@"peripheralDidUpdateName: %@", peripheral);
+    if (self.verbose) {
+        NSLog(@"peripheralDidUpdateName: %@", peripheral);
+    }
     if (peripheral.didUpdateName) {
         peripheral.didUpdateName(peripheral, nil);
     }
@@ -446,7 +469,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices
 {
-    NSLog(@"didModifyServices: %@, %@", peripheral, invalidatedServices);
+    if (self.verbose) {
+        NSLog(@"didModifyServices: %@, %@", peripheral, invalidatedServices);
+    }
     if (peripheral.didModifyServices) {
         peripheral.didModifyServices(peripheral, invalidatedServices);
     }
