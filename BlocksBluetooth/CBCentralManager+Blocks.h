@@ -66,6 +66,21 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)stopScanAndRemoveHandler;
 
+#pragma mark - Misc
+
+/*!
+ *  @method retrieveConnectedPeripheralsWithServices
+ *
+ *  @discussion Retrieves all peripherals that are connected to the system and implement any of the services listed in <i>serviceUUIDs</i>.
+ *                Note that this set can include peripherals which were connected by other applications, which will need to be connected locally
+ *                via {@link connectPeripheral:options:} before they can be used.
+ *
+ *   @param didRetrieve  A block to handle the info returned by the <code>centralManager:retrieveConnectedPeripheralsWithServices:serviceUUIDs:</code> delegate.
+ *
+ *    @return        A list of <code>CBPeripheral</code> objects.
+ *
+ */
+- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs didRetrieve:(nullable BBCentralRestore)didRetrieve;
 
 #pragma mark - Establishing or Canceling Connections with Peripherals
 

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CBCentralManager (_Blocks)
 @property (nonatomic, nullable, copy) BBPeripheralDiscoverBlock didDiscoverPeripheral;
+@property (nonatomic, nullable, copy) BBCentralRestore didRetrieve;
 @end
 
 
@@ -32,6 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
     objc_setAssociatedObject(self, @selector(didDiscoverPeripheral), didDiscoverPeripheral, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
+- (nullable BBCentralRestore)didRetrieve
+{
+    return (BBCentralRestore)objc_getAssociatedObject(self, @selector(didRetrieve));
+}
+
+- (void)setDidRetrieve:(nullable BBCentralRestore)didRetrieve
+{
+    objc_setAssociatedObject(self, @selector(didRetrieve), didRetrieve, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
 @end
 
 
@@ -118,6 +128,14 @@ NS_ASSUME_NONNULL_BEGIN
     [self cancelPeripheralConnection:peripheral];
 }
 
+#pragma mark - Misc
+- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs didRetrieve:(nullable BBCentralRestore)didRetrieve {
+    if (self.delegate != self) {
+        self.delegate = self;
+    }
+    self.didRetrieve = didRetrieve;
+    return [self retrieveConnectedPeripheralsWithServices: serviceUUIDs];
+}
 
 #pragma mark - Central Manager Delegate
 
@@ -173,6 +191,29 @@ NS_ASSUME_NONNULL_BEGIN
         peripheral.didDisconnect = nil;
     }
 }
+
+/*!
+ *  @method centralManager:willRestoreState:
+ *
+ *  @param central      The central manager providing this information.
+ *  @param dict            A dictionary containing information about <i>central</i> that was preserved by the system at the time the app was terminated.
+ *
+ *  @discussion            For apps that opt-in to state preservation and restoration, this is the first method invoked when your app is relaunched into
+ *                        the background to complete some Bluetooth-related task. Use this method to synchronize your app's state with the state of the
+ *                        Bluetooth system.
+ *
+ *  @seealso            CBCentralManagerRestoredStatePeripheralsKey;
+ *  @seealso            CBCentralManagerRestoredStateScanServicesKey;
+ *  @seealso            CBCentralManagerRestoredStateScanOptionsKey;
+ *
+ */
+- (void)centralManager:(CBCentralManager *)central willRestoreState:(NSDictionary<NSString *, id> *)dict
+{
+    if ([self isVerbose]) {
+        NSLog(@"willRestoreState: %@", dict);
+    }
+}
+
 
 @end
 
