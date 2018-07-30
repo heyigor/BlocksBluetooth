@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CBCentralManager (_Blocks)
 @property (nonatomic, nullable, copy) BBPeripheralDiscoverBlock didDiscoverPeripheral;
-@property (nonatomic, nullable, copy) BBCentralRestore didRetrieve;
+@property (nonatomic, nullable, copy) BBCentralRestore willRestore;
 @end
 
 
@@ -33,14 +33,14 @@ NS_ASSUME_NONNULL_BEGIN
     objc_setAssociatedObject(self, @selector(didDiscoverPeripheral), didDiscoverPeripheral, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
-- (nullable BBCentralRestore)didRetrieve
+- (nullable BBCentralRestore)willRestore
 {
-    return (BBCentralRestore)objc_getAssociatedObject(self, @selector(didRetrieve));
+    return (BBCentralRestore)objc_getAssociatedObject(self, @selector(willRestore));
 }
 
-- (void)setDidRetrieve:(nullable BBCentralRestore)didRetrieve
+- (void)setWillRestore:(nullable BBCentralRestore)willRestore
 {
-    objc_setAssociatedObject(self, @selector(didRetrieve), didRetrieve, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(willRestore), willRestore, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 @end
 
@@ -129,11 +129,15 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Misc
-- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs didRetrieve:(nullable BBCentralRestore)didRetrieve {
+- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs willRestore:(nullable BBCentralRestore)willRestore
+{
+    if ([self isVerbose]) {
+        NSLog(@"retrieveConnectedPeripheralsWithServices");
+    }
     if (self.delegate != self) {
         self.delegate = self;
     }
-    self.didRetrieve = didRetrieve;
+    self.willRestore = willRestore;
     return [self retrieveConnectedPeripheralsWithServices: serviceUUIDs];
 }
 
@@ -211,6 +215,9 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if ([self isVerbose]) {
         NSLog(@"willRestoreState: %@", dict);
+    }
+    if (self.willRestore) {
+        self.willRestore(central, dict);
     }
 }
 

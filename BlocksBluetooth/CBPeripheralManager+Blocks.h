@@ -36,6 +36,8 @@ typedef void(^BBRequestsBlock)(NSArray *requests);
 #pragma mark - Advertising Peripheral Data
 - (void)startAdvertising:(nullable NSDictionary<NSString *, id> *)advertisementData didStart:(nullable BBErrorBlock)didStart;
 
+- (void)setWillRestore:(nullable BBPeripheraRestore)willRestore;
+
 @end
 
 

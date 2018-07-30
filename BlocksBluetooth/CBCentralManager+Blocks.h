@@ -80,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
  *    @return        A list of <code>CBPeripheral</code> objects.
  *
  */
-- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs didRetrieve:(nullable BBCentralRestore)didRetrieve;
+- (NSArray<CBPeripheral *> *)retrieveConnectedPeripheralsWithServices:(NSArray<CBUUID *> *)serviceUUIDs willRestore:(nullable BBCentralRestore)willRestore;
 
 #pragma mark - Establishing or Canceling Connections with Peripherals
 

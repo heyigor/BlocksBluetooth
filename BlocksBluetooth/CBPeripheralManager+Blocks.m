@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CBPeripheralManager (_Blocks)
 @property (nonatomic, nullable, copy) BBErrorBlock didStartAdvertising;
+@property (nonatomic, nullable, copy) BBPeripheraRestore willRestore;
 @end
 
 
@@ -55,6 +56,11 @@ NS_ASSUME_NONNULL_BEGIN
     objc_setAssociatedObject(self, @selector(didStartAdvertising), didStartAdvertising, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
+- (nullable BBPeripheraRestore)willRestore
+{
+    return (BBPeripheraRestore)objc_getAssociatedObject(self, @selector(willRestore));
+}
+
 @end
 
 
@@ -62,6 +68,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - CBPeripheralManager
 
 @implementation CBPeripheralManager (Blocks)
+
+- (void)setWillRestore:(nullable BBPeripheraRestore)willRestore
+{
+    if (self.delegate != self) {
+        self.delegate = self;
+    }
+    objc_setAssociatedObject(self, @selector(willRestore), willRestore, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
 
 - (nullable BBVoidBlock)didUpdateState
 {
@@ -234,6 +248,16 @@ NS_ASSUME_NONNULL_BEGIN
     }
     if (self.didReceiveReadRequest) {
         self.didReceiveReadRequest(request);
+    }
+}
+
+- (void)peripheralManager:(CBPeripheralManager *)peripheral willRestoreState:(NSDictionary<NSString *, id> *)dict
+{
+    if ([self isVerbose]) {
+        NSLog(@"willRestoreState: %@", dict);
+    }
+    if (self.willRestore) {
+        self.willRestore(peripheral, dict);
     }
 }
 
