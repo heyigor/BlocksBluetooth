@@ -61,21 +61,15 @@ NS_ASSUME_NONNULL_BEGIN
     return (BBPeripheraRestore)objc_getAssociatedObject(self, @selector(willRestore));
 }
 
+- (void)setWillRestore:(nullable BBPeripheraRestore)willRestore
+{
+    objc_setAssociatedObject(self, @selector(willRestore), willRestore, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
 @end
-
-
 
 #pragma mark - CBPeripheralManager
 
 @implementation CBPeripheralManager (Blocks)
-
-- (void)setWillRestore:(nullable BBPeripheraRestore)willRestore
-{
-    if (self.delegate != self) {
-        self.delegate = self;
-    }
-    objc_setAssociatedObject(self, @selector(willRestore), willRestore, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
 
 - (nullable BBVoidBlock)didUpdateState
 {
