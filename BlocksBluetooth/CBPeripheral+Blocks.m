@@ -8,6 +8,7 @@
 
 #import "CBPeripheral+Blocks.h"
 #import "CBPeripheral+Debug.h"
+#import "CBCharacteristic+Blocks.h"
 #import <objc/runtime.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -114,7 +115,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @implementation CBCharacteristic (_Blocks)
-
 - (nullable BBDescriptorsBlock)didDiscoverDescriptors
 {
     return (BBDescriptorsBlock)objc_getAssociatedObject(self, @selector(didDiscoverDescriptors));
@@ -398,7 +398,9 @@ NS_ASSUME_NONNULL_BEGIN
     }
     if (characteristic.didUpdateValue) {
         characteristic.didUpdateValue(characteristic, error);
-        characteristic.didUpdateValue = nil;
+        if ([characteristic isUpdateUseAlways] == NO) {
+            characteristic.didUpdateValue = nil;
+        }
     }
 }
 
